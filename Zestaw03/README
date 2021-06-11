@@ -1,0 +1,96 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 12.04.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw03 zawiera programy:
+
+1) Program wypisujacy informacje o procesie, ustawiajacy
+    obsluge sygnalu podanego przez uzytkownika - moze byc
+    wykonana obsluga domyslna sygnalu, ignorowanie go lub
+    wypisanie jego numeru - oraz czekajacy na pojawienie sie
+    sygnalu.
+    Program sklada sie z:
+    * obsluga.c
+    * procinfo.c, procinfo.h
+
+2) Program tworzacy proces potomny, ktory uruchamia program 
+    z obsluga sygnalu, a proces macierzysty wysyla do niego
+    dany sygnal.
+    Program sklada sie z:
+    * wysylaj.c
+    * obsluga.c, procinfo.c, procinfo.h
+
+3) Program tworzacy proces potomny, ktory ustawia samego siebie
+    jako lidera grupy i ignorowanie podanego przez uzytkownika
+    sygnalu, a nastepnie tworzy 3 procesy potomne, ktore
+    uruchamiaja program obslugi sygnalu. Nastepnie czeka na
+    procesy potomne i wypisuje ich status zakonczenia.
+    Pierwszy proces macierzysty wysyla sygnal do powyzszej
+    grupy procesow. 
+    Program sklada sie z:
+    * grupa.c
+    * obsluga.c, procinfo.c, procinfo.h
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./obsluga.x  <'d'/'i'/'p'>   <nr_sygnalu>
+2) ./wysylaj.x  <'d'/'i'/'p'>   <nr_sygnalu>
+3) ./grupa.x  <'d'/'i'/'p'>   <nr_sygnalu>
+
+---------------------------------------------------------------
+
+ZADANIE 4.
+
+1. SIGSTOP - zatrzymanie procesu (nieprzechwytywalny)
+2. SIGKILL - bezwarunkowe zakonczenie procesu
+    (nieprzechwytywalny)
+3. SIGTSTP - zatrzymanie procesu; sygnal wysylany przy 
+    sekwencji klawiszowej CTRL+Z
+4. SIGSEGV - naruszenie ograniczen pamieci; zakonczenie
+    procesu i generowanie pliku zrzutu - obrazu pamieci.
+
+-------
+
+9. Za pomoca skrotow klawiszowych mozna wysylac sygnaly: 
+    SIGINT (CTRL+C), SIGTSTP (CTRL+Z), SIGQUIT (CTRL+\)
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Sygnaly sluza do komunikacji miedzyprocesowej w systemie
+    UNIX. Umozliwiaja przerwanie dzialania procesu i reakcje
+    na okreslone zdarzenie.
+2. Funkcja signal() sluzy do modyfikacji sposobu reagowania na
+    dany sygnal przez proces. Funkcja ta nie wykonuje wskazanych
+    operacji (obslugi), ani nie czeka na pojawienie sie procesu.
+3. Funkcja kill() sluzy do wysylania danego sygnalu do wybranego
+    odbiorcy. Pierwszym argumentem jest numer PID procesu, do
+    ktorego chcemy wyslac sygnal lub numer PGID (zapisany
+    z minusem -> -PGID) grupy procesow. Jesli wpiszemy 0, to
+    oznacza to PGID procesu wysylajacego sygnal.
+4. Do sprawdzenia, czy istnieje proces (grupa procesow), do
+    ktorego chcemy wyslac sygnal, uzywamy funkcji kill(),
+    w ktorej jako drugi argument wpisujemy 0 (zamiast numeru
+    sygnalu).
+5. Wywolanie kill(0,0) sprawdza, czy mozna wyslac sygnal do
+    grupy procesow, do ktorej nalezy proces wysylajacy ten
+    sygnal. W praktyce takie wywolanie zawsze sie powiedzie.
+6. W programie grupa.c trzeba ustawic ignorowanie sygnalu
+    w procesie macierzystym, poniewaz jest on liderem grupy
+    i w przeciwnym wypadku takze by obslugiwal sygnal, co
+    mogloby na przyklad doprowadzic do powstania procesow
+    osieroconych.
+7. Zatrzymany proces mozna wznowic za pomoca sygnalu SIGCONT.
+8. Sygnal SIGCHLD wysylany jest do procesu macierzystego, gdy
+    proces potomny zakonczy swoje dzialanie.
+9. Za pomoca skrotow klawiszowych mozna wysylac sygnaly: 
+    SIGINT (CTRL+C), SIGTSTP (CTRL+Z), SIGQUIT (CTRL+\)
+10. Funkcja pause() zawiesza wykonywanie procesu, az do
+    pojawienia sie sygnalu, ktory mozna obsluzyc.
+
+---------------------------------------------------------------

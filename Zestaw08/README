@@ -1,0 +1,58 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 24.05.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw08 zawiera programy:
+
+1) Program, ktory na podstawie otrzymanych komunikatow od
+    innych procesow, wykonuje zadane obliczenia i odsyla je
+    z powrotem do tych procesow.
+    Program sklada sie z:
+    * serwer.c
+    * dane.h
+    * msg.c msg.h (biblioteka libmsg.so)
+
+2) Program, ktory wysyla komunikaty do serwera w postaci
+    dzialan arytmetycznych wprowadzonych przez uzytkownika,
+    a potem odczytuje otrzymane wyniki.
+    Program sklada sie z:
+    * klient.c
+    * dane.h
+    * msg.c msg.h (biblioteka libmsg.so)
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./serwer.x
+
+2) ./klient.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Funkcja mq_open() sluzy do tworzenia nowej kolejki
+    komunikatow lub otwierania juz istniejacej. Pierwszy
+    argument to nazwa kolejki (zapisana z '/'), drugim sa
+    flagi (np. O_RDWR|O_CREAT), trzeci to prawa dostepu (jesli
+    O_CREAT) i czwarty to wskaznik do struktury atrybutow
+    kolejki. Funkcja zwraca deskryptor kolejki lub (mqd_t)-1
+    w przypadku bledu.
+
+2. Funkcje mq_send() i mq_receive() sluza odpowiednio do
+    wysylania i odbierania komunikatow. Pierwszy argument to
+    deskryptor kolejki, drugi to (odpowiednio) komunikat badz
+    wskaznik na bufor, w ktorym ma on zostac zapisany, trzeci
+    argument to (odpowiednio) dlugosc komunikatu badz rozmiar
+    bufora i czwarty argument to priorytet komunikatu.
+
+3. Kolejki komunikatow znajduja sie w folderze /dev/mqueue/ .
+
+4. Informacje o parametrach kolejki mozna otrzymac za pomoca
+    funkcji mq_getattr().
+
+---------------------------------------------------------------

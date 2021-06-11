@@ -1,0 +1,67 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 10.05.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw07 zawiera programy:
+
+1) Program, który zarządza pamięcią dzieloną, używając
+    biblioteki dynamicznej libshmem.so.
+    Program sklada sie z:
+    * shmuse.c
+    * shmem.c shmem.h (biblioteka shmem.so)
+
+2) Programu rozwiazujacego problem "Producenta i Konsumenta"
+    z wykorzystaniem semaforow, pamieci dzielonej i bufora
+    cyklicznego.
+    Program sklada sie z:
+    * glowny.c
+    * producent.c
+    * konsument.c
+    * shmem.c shmem.h (biblioteka shmem.so)
+    * sem.c sem.h (biblioteka libsem.a)
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./shmuse1.x <c/d/r/w/i> <'c' - dodac size, 'w' - input.txt> 
+    lub
+    export LD_LIBRARY_PATH=.; ./shmuse2.x  --||--
+
+2) export LD_LIBRARY_PATH=.; ./glowny.x
+    Do poprawnego dzialania wymagana jest obecnosc pliku
+    "magazyn.txt" (zawierajacego ciag cyfr).
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. W zadaniu 3 tworzone sa 2 semafory. Pierwszy jest uzywany,
+    gdy producent wpisuje dane do pamieci dzielonej, a drugi,
+    gdy konsument pobiera dane z pamieci dzielonej. Jesli
+    bufor cykliczny sie zapelni, to producent blokuje sobie
+    do niego dostep, a moze go odblokowac konsument, gdy
+    pobierze z niego dane. Analogicznie, gdy bufor stanie sie
+    pusty. Wtedy konsument blokuje sobie dostep, a moze go
+    odblokowac producent, gdy doda dane do bufora.
+
+3. Procesy maja dostep do tego samego segmentu pamieci
+    dzielonej poprzez jego otwarcie, a pozniej odwzorowanie
+    tego obszaru w swoje przestrzenie adresowe.
+
+4. Biblioteka dynamiczna, to biblioteka, ktora jest laczona 
+    z programem wykonywalnym dopiero w momencie jego
+    wykonywania. Zaleta biblioteki dynamicznej jest to, ze
+    moze byc swobodnie modyfikowana bez koniecznosci ponownej
+    kompilacji programu.
+
+5. Biblioteke dynamiczna tworzymy kompilujac plik zrodlowy
+    do pliku obiektowego, a nastepnie uzyc komendy:
+    gcc -shared -o libnazwa.so nazwa.o
+    Biblioteke dynamiczna laczy sie z programem, uzywajac
+    komendy: gcc nazwa_programu.c -L<sciezka_bib> -l<nazwa_bib>
+
+---------------------------------------------------------------

@@ -1,0 +1,42 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 29.05.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw10 zawiera programy:
+
+1) Program, ktory realizuje algorytm piekarni z wykorzystaniem
+    watkow.
+    Program sklada sie z:
+    * piekarnia.c
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./piekarnia.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Dwa watki nie maja jednoczesnie dostepu do sekcji krytycznej,
+    poniewaz jeden z nich znajduje sie w ktorejs z petli
+    nieskonczonych, w czasie w ktorym drugi watek jest w sekcji
+    krytycznej.
+
+2. Algorytm nie prowadzi do zakleszczen, poniewaz jesli watek
+    znajduje sie w sekcji krytycznej lub jest w trakcie
+    wybierania numeru, to po pewnym czasie opuszcza te sekcje
+    krytyczna i nie prowadzi to do sytuacji, w ktorej
+    watki znajdowalyby sie w petli nieskonczonej przez caly
+    czas czekajac na zwolnienie sekcji.
+
+3. Algorytm nie prowadzi do zaglodzenia, poniewaz kazde
+    pobranie numerka przyporzadkowuje liczbe maksymalna + 1
+    (jesli watek powtarza pobieranie numerka, to bedzie musial
+    poczekac na reszte watkow).
+
+---------------------------------------------------------------

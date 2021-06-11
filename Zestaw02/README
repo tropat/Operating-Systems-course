@@ -1,0 +1,85 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 27.03.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw02 zawiera programy:
+
+1) Dwa programy generujace dwa rozne drzewa genealogiczne
+    procesow.
+    Programy skladaja sie z:
+    * drzewko1.c, drzewko2.c
+    * procinfo.c, procinfo.h
+
+2) Program, ktory tworzy procesy potomne, a kazdy z nich
+    uruchamia za pomoca funkcji execv() program wypisujacy
+    informacje o nich.
+    Program sklada sie z:
+    * macierzysty.c
+    * potomny.c
+    * procinfo.c, procinfo.h
+
+3) Program tworzacy proces zombi.
+    Program sklada sie z:
+    * zombi.c
+
+4) Program tworzacy proces osierocony.
+    Program sklada sie z:
+    * orphan.c
+
+5) Program, ktory wypisuje komunikat, a nastepnie uruchamia
+    za pomoca funkcji execl() program wypisujacy informacje
+    o procesie.
+    Program sklada sie z:
+    * execute.c
+    * potomny.c
+    * procinfo.c, procinfo.h
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./drzewko1.x lub drzewko2.x
+2) ./macierzysty.x
+3) ./zombi.x
+4) ./orphan.x
+5) ./execute.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Pierwszy proces tworzy 3 swoje procesy potomne, ktore nie
+    tworza juz kolejych procesow potomnych, poniewaz przerywaja
+    swoje wykonywanie programu macierzysty.x i sa ponownie
+    inicjalizowane na postawie programu potomny.x.
+
+2. Powstaje n procesow, poniewaz kazdy z procesow
+    potomnych bedzie na nowo inicjalizowany przez program
+    potomny.x, w ktorym nie ma wywolania funkcji fork() do
+    tworzenia nowych procesow potomnych.
+
+3. Funkcja execl() robi to samo co execv(), czyli inicjalizuje
+    na nowo proces na podstawie podanego programu. Roznia sie 
+    postacia argumentow - execl() przyjmuje argumenty
+    w postaci listy (ostatni argument to NULL), a execv() 
+    argumenty w postaci tablicy. Obie funkcje jako pierwszy
+    argument przyjmuja sciezkowa nazwe pliku, ktory zawiera
+    program.
+
+4. Proces ten jest pierwszym procesem tworzonym w trakcie
+    uruchamiania systemu. W oparciu o niego tworzone jest
+    drzewo procesow. Odpowiada on miedzy innymi za 
+    adoptowanie procesow osieroconych.
+
+5. Proces zombi to proces, ktory zakonczyl swoje dzialanie, ale
+    na ktory nie czekal zaden inny proces. Taki proces nic nie
+    robi, ale zajmuje miejsce w systemowej tabeli procesow.
+
+6. Proces osierocony to proces, ktorego proces macierzysty
+    zakonczyl swoje dzialanie szybciej niz on. Procesy sieroty
+    moga byc adoptowane przez inne procesy.
+
+---------------------------------------------------------------

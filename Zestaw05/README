@@ -1,0 +1,41 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 19.04.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw05 zawiera programy:
+
+1) Program, ktory tworzy potok nazwany. W procesie
+    macierzystym odczytuje dane z pliku "magazyn.txt" oraz
+    zapisuje je do potoku, natomiast w procesie potomnym
+    odczytuje dane z potoku i zapisuje je do pliku 
+    "schowek.txt".
+    Program sklada sie z:
+    * fifo.c
+    * producent.c
+    * konsument.c
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./fifo.x ./producent.x ./konsument.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Zarowno funkcja pipe(), jak i mkfifo() tworza potok, z tym
+    ze pipe() nienazwany, a mkfifo() nazwany.
+
+2. FIFO (First In, First Out) oznacza, ze to co pierwsze
+    wejdzie do potoku, pierwsze z niego wyjdzie.
+
+3. Potok nazwany tworzymy w programie za pomoca funkcji
+    mkfifo(), a usuwamy funkcja unlink(). Z linii komend
+    robimy to samo przy pomocy komend odpowiednio 
+    mkfifo [-m mode] file_name oraz unlink file_name.
+
+---------------------------------------------------------------

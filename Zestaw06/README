@@ -1,0 +1,66 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 26.04.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw03 zawiera programy:
+
+1) Program, ktory w zaleznosci od przekazanych argumentow:
+    inicjuje semafor i wypisuje o nim informacje; usuwa semafor;
+    opuszcza semafor i wypisuje o nim informacje; podnosi
+    semafor i wypisuje o nim informacje; wypisuje informacje
+    o semaforze.
+    Program sklada sie z: 
+    * semuse.c
+    * sem.c sem.h (biblioteka libsem.a)
+
+2) Program, ktory tworzy procesy potomne operujace na utworzonym
+    semaforze nazwanym. Proces potomny, ktory wchodzi do sekcji
+    krytycznej, pobiera wartosc z pliku, inkrementuje ja
+    i zapisuje z powrotem.
+    Program sklada sie z:
+    * powielacz.c
+    * prog.c
+    * sem.c sem.h (biblioteka libsem.a)
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./semuse.x
+
+2) ./powielacz.x ./prog <liczba_procesow> <liczba_sekcji_kryt>
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Semafory sluza do synchronizacji dostepu procesow do ich
+    wspolnych zasobow.
+
+2. Na semaforach dostepne sa operacje podniesienia (zwolnienia)
+    i opuszczenia (zajecia). Operacja opuszczenia zmniejsza
+    wartosc semafora. Jesli jest ona rowna 0, to pozostale
+    procesy nie maja dostepu do zasobu, dopoki ponownie nie
+    zostanie ona zwiekszona przez operacje podniesienia.
+
+3. Niezalezne procesy moga wspolnie korzystac z semaforow
+    nazwanych - wystarczy, ze podadza te sama nazwe semafora 
+    w funkcji sem_open().
+
+4. Biblioteka statyczna - rodzaj biblioteki, ktora jest
+    laczona z programem w momencie konsolidacji (linkowania),
+    w przeciwienstwie do dynamicznej, ktora jest laczona
+    dopiero w momencie wykonywania programu. Zaleta
+    biblioteki statycznej jest to, ze po skompilowaniu
+    program moze dzialac samodzielnie.
+
+5. Aby stworzyc biblioteke statyczna, nalezy skompilowac
+    plik zrodlowy do pliku obiektowego, a nastepnie
+    uzyc polecenia: ar <flagi> <nazwa.a> <nazwa.o>.
+    Zeby uzyc biblioteki statycznej, podczas kompilacji nalezy
+    uzyc polecenia: gcc -L<sciezka> <nazwa.c> -l<nazwa>
+
+---------------------------------------------------------------

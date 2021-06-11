@@ -1,0 +1,69 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 29.05.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw09 zawiera programy:
+
+1) Program, ktory przy pomocy muteksow realizuje zadanie
+    wzajemnego wykluczania dla watkow.
+    Program sklada sie z:
+    * wykluczanie.c
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./wykluczanie.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Watek jest rozwidleniem procesu w jego przestrzeni adresowej.
+
+2. Funkcja pthread_create() tworzy watek, ktory zaczyna
+    wykonywac funkcje podana jako trzeci argument. Dodatkowo
+    jako pierwszy argument nalezy podac wskaznik na obiekt typu
+    pthread_t, do ktorego zostanie wpisane id watku. Drugim
+    argumentem jest wskaznik do struktury atrybutow watku
+    (jesli chcemy, aby byly ustawione domyslnie, podajemy NULL).
+    Czwarty argument to wskaznik na argument, z ktorym chcemy
+    wywolac nasza funkcje podana w trzecim argumencie. Funkcja
+    pthread_create() zwraca 0 w przypadku sukcesu lub inna
+    wartosc w przypadku bledu.
+
+3. Funkcja pthread_join() jest odpowiednikiem funkcji wait()
+    dla procesow.
+
+4. Muteksy roznia sie od semaforow tym, ze zamkniecie muteksu
+    oznaczane jest wartoscia 1, a otwarcie wartoscia 0.
+    W przypadku semaforow jest odwrotnie.
+
+5. Muteks mozna stworzyc albo od razu go inicjalizujac: 
+    pthread_mutex_t myMutex = PTHREAD_MUTEX_INITIALIZER;
+    albo wywolujac funckje:
+    pthread_mutex_t myMutex;
+    pthread_mutex_init(&myMutex, NULL);
+
+6. Na muteksach mozemy wykonac takie operacje jak:
+    pthread_mutex_lock() - zamkniecie muteksu
+    pthread_mutex_unlock() - otwarcie muteksu
+    pthread_mutex_trylock() - proba zamkniecia muteksu, ale
+        jesli juz jest zamkniety, to watek nie czeka na otwarcie
+    pthread_mutex_destroy() - usuniecie muteksu
+
+7. Musimy definiowac makro _REENTRANT, poniewaz oznacza ona,
+    ze jest to kod wielokrotnego uzytku - mozna wiele razy do
+    niego wchodzic.
+
+8. void * (*) () oznacza wskaznik typu void na funkcje, ktora
+    zwraca wskaznik typu void.
+
+9. Operacje atomowe to takie, ktore sa niepodzielne. Sa one
+    potrzebne, zeby wykonywanie pewnych instrukcji (np. przez 
+    rozne watki) sie ze soba nie przeplatalo.
+
+---------------------------------------------------------------

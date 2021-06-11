@@ -1,0 +1,75 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 21.03.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw01 zawiera programy:
+
+1) Program wypisujacy swoja nazwe oraz identyfikatory UID, GID,
+    PID, PPID, PGID dla aktualnego procesu.
+    Program sklada sie z:
+    * main.c
+    * procinfo.c, procinfo.h
+
+2) Program kopiujacy zawartosc jednego pliku do drugiego 
+    (nazwy nalezy podac w linii komend).
+    Program sklada sie z:
+    * kopiuj.c
+
+3) Program wypisujacy nazwe oraz identyfikatory UID, GID,PID,
+    PPID, PGID dla aktualnego procesu i wszystkich jego
+    procesow potomnych, a także grupujacy je pokoleniami.
+    Program sklada sie z:
+    * procesy.c
+    * procinfo.c, procinfo.h
+
+4) Program robiacy to samo, co poprzedni i dodatkowo
+    ustanawiajacy procesy potomne liderami swoich wlasnych
+    grup.
+    Program sklada sie z:
+    * lider.c
+    * procinfo.c, procinfo.h
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./main.x
+2) ./kopiuj.x nazwa_pliku_zrodlowego nazwa_pliku_docelowego
+3) ./procesy.x
+4) ./lider.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Funkcja fork() tworzy proces potomny, ktory jest dokladna
+    kopia swojego rodzica, ale mozna je rozroznic w ten sposob,
+    ze fork() dla rodzica zwraca id procesu potomnego, a dla
+    potomka zwraca 0.
+2. W zadaniu "procesy" powstaje 8 procesow, poniewaz
+    w pierwszym procesie funkcja fork() wykona sie 3 razy 
+    (powstana 3 procesy potomne), w procesie powstalym
+    w 1 iteracji fork() wykona sie 2 razy (2 procesy),
+    w 2 procesach powstalych w 2 iteracji fork() wykona sie
+    1 raz (2 procesy). Wszystkich procesow (razem z tym
+    pierwszym) jest wiec 8 (2^3). Liczba dzieci danego procesu
+    zalezy od tego, w ktorej iteracji powstal.
+3. Przy n-krotnym wywolaniu funkcji fork() powstaje 2^n
+    procesow, poniewaz kazdy proces, zarowno macierzysty, jak
+    i potomny, przy kolejnym wywolaniu tworza kopie samego
+    siebie.
+4. W miejscu przed zakonczeniem instrukcji calego programu 
+    ustawic funkcje sleep() na odpowiednio dlugi czas, zeby 
+    kazdy z procesow potomnych zdazyl wykonac w tym czasie 
+    wszystkie swoje polecenia.
+5. Funkcja open() zwraca deskryptor pliku (mala, nieujemna
+    liczba calkowita) lub -1, gdy wystapi blad (ustawiane jest
+    rowniez errno).
+6. Read() i write() zwracaja odpowiednio liczbe wczytanych
+    i liczbe zapisanych bajtow lub -1 w przypadku bledu
+    (ustawiane jest rowniez errno).
+
+---------------------------------------------------------------

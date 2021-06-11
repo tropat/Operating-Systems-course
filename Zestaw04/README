@@ -1,0 +1,58 @@
+---------------------------------------------------------------
+Autor: Patrycja Trojan                     Krakow, 19.04.2021r.
+---------------------------------------------------------------
+
+Katalog Zestaw04 zawiera programy:
+
+1) Program, ktory tworzy potok nienazwany. W procesie
+    macierzystym odczytuje dane z pliku "magazyn.txt" oraz
+    zapisuje je do potoku, natomiast w procesie potomnym
+    odczytuje dane z potoku i zapisuje je do pliku 
+    "schowek.txt".
+    Program sklada sie z:
+    * prodkons.c
+    * prod.c prod.h
+    * kons.c kons.h
+
+---------------------------------------------------------------
+
+    W katalogu znajduje sie program Makefile do kompilacji
+    programow oraz czyszczenia katalogu.
+
+Aby uruchomic programy, nalezy je skompilowac oraz uzyc komend:
+
+1) ./prodkons.x
+
+---------------------------------------------------------------
+
+ODPOWIEDZI NA PYTANIA
+
+1. Funkcja pipe zwraca 0 lub -1 w przypadku bledu. Dodatkowo
+    zmieniane sa wartosci w dwuelementowej tablicy przekazanej
+    jako argument wywolania funkcji - deskryptory potoku.
+
+2. Zarowno funkcja pipe(), jak i mkfifo() tworza potok, z tym
+    ze pipe() nienazwany, a mkfifo() nazwany.
+
+3. FIFO (First In, First Out) oznacza, ze to, co pierwsze
+    wejdzie do potoku, pierwsze z niego wyjdzie.
+
+4. Deskryptor to nieujemna liczba calkowita, ktora jest
+    zwiazana z plikiem, gdy zostanie otwarty przez jakis
+    proces.
+
+5. Deskryptory zamykamy za pomoca funkcji close(). Dzieki temu
+    mozna go uzyc ponownie przed zakonczeniem programu.
+    Dodatkowo zamykanie deskryptorow przed zakonczeniem chroni
+    przed pojawieniem sie niepozadanych bledow.
+
+6. Jesli nie zamkniemy deskryptorow przed zakonczeniem
+    programu, to zrobi to za nas sam program, ale pod
+    warunkiem, ze zakonczyl sie poprawnie.
+
+7. Potok nazwany tworzymy w programie za pomoca funkcji
+    mkfifo(), a usuwamy funkcja unlink(). Z linii komend
+    robimy to samo przy pomocy komend odpowiednio 
+    mkfifo [-m mode] file_name oraz unlink file_name.
+
+---------------------------------------------------------------
